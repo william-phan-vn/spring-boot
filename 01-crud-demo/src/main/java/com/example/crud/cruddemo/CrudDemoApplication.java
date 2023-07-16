@@ -12,7 +12,7 @@ public class CrudDemoApplication {
 		SpringApplication.run(CrudDemoApplication.class, args);
 	}
 
-//	create command line app
+	// create command line app
 	@Bean
 	public CommandLineRunner commandLineRunner(String[] args) {
 		return runner -> {
