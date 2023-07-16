@@ -14,16 +14,25 @@ public class DemoLoggingAspect {
     private Logger myLogger = Logger.getLogger(getClass().getName());
 
     // setup pointcut declaration
-    @Pointcut("excecution(* com.luv2code.springboot.thymeleafdemo.controller.*.*(..))")
+    @Pointcut("execution(* com.luv2code.springboot.thymeleafdemo.controller.*.*(..))")
     private void forControllerPackage() {}
 
-    @Pointcut("excecution(* com.luv2code.springboot.thymeleafdemo.service.*.*(..))")
+    @Pointcut("execution(* com.luv2code.springboot.thymeleafdemo.service.*.*(..))")
     private void forServicePackage() {}
 
-    @Pointcut("excecution(* com.luv2code.springboot.thymeleafdemo.dao.*.*(..))")
+    @Pointcut("execution(* com.luv2code.springboot.thymeleafdemo.dao.*.*(..))")
     private void forDaoPackage() {}
 
     @Pointcut("forControllerPackage() || forServicePackage() || forDaoPackage()")
     private void forAppFlow() {}
 
+    // add @Before advice
+    @Before("forAppFlow()")
+    public void before(JoinPoint theJointPoint) {
+
+        // display the method we are calling
+        String theMethod = theJointPoint.getSignature().toShortString();
+        myLogger.info("=====>> in @Before: calling method: " + theMethod);
+
+    }
 }
